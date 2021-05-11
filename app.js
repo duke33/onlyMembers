@@ -13,6 +13,12 @@ var usersRouter = require('./routes/users');
 const bcrypt = require("bcryptjs");
 var flash = require('connect-flash');
 
+
+//TODO Cambiar la base de datos a una que sirva para produccion
+//TODO confirmPasspord field
+//TODO sanitaze data: en el sign up, pedir un mail valido, desde el fron o back????
+//TODO add validation to the models, ver en onenote "validation"
+//TODO cambiar la date a un formato que corresponda
 const mongoDb = "mongodb+srv://testmariano:testmarianol@cluster0.kyzvi.mongodb.net/onlyMembers?retryWrites=true";
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;

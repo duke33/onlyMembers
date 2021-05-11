@@ -41,9 +41,20 @@
                             <strong>Date</strong>
                             <%= message.timestamp %><br>
                                 <%= message.messageText %><br>
-                                    <strong>Author</strong>
-                                    <%= user? message.author: "Log-in to unveil!" %>
-                                        <hr>
+                                    <strong style="color:rgb(255, 0, 0)">Author</strong>
+                                    <%= user? message.author: "Log-in to unveil!" %><br>
+
+
+
+                                        <% if(user)
+                                        {
+                                            if (user.isAdmin){
+                                             %>
+                                            <a href="/">DELETE MESSAGE</a>
+                                            <% }%>
+                                                <% }%>
+                                                    <hr>
+
                         </li>
                         <% }); %>
                 </ul>
