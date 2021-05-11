@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+
+    </h1>
+    <p>Welcome to
+        <%= title %>,
+            <b><%= user? user.username: "stranger!" %></b>
+    </p>
+
+
+
+
+    <% if(!user){ %>
+        <a href="/log-in">LOG IN</a> <br>
+        <a href="/sign-up">SIGN UP</a> <br>
+        <p>Log in to create a New message</p>
+        <% } else{ %>
+            <a href="/create-new-message">Create New Message</a> <br>
+            <a href="/log-out">LOG OUT</a>
+            <% } %>
+
+
+
+
+                </div>
+                <ul>
+                    <% message_list.forEach(function(message) { %>
+                        <li>
+                            <strong><%= message.tittle %></strong> <br>
+                            <strong>Date</strong>
+                            <%= message.timestamp %><br>
+                                <%= message.messageText %><br>
+                                    <strong>Author</strong>
+                                    <%= user? message.author: "Log-in to unveil!" %>
+                                        <hr>
+                        </li>
+                        <% }); %>
+                </ul>
+                </div>
+
+</body>
+
 </html>
