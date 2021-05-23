@@ -15,7 +15,7 @@
     </h1>
     <p>Welcome to
         <%= title %>,
-            <b><%= user? user.username: "stranger!" %></b>
+            <b style="color:rgb(30, 180, 87)"><%= user? user.username: "stranger!" %></b>
     </p>
 
 
@@ -39,7 +39,7 @@
                         <li>
                             <strong><%= message.tittle %></strong> <br>
                             <strong>Date</strong>
-                            <%= message.timestamp %><br>
+                            <%= message.publication_date_formatted %><br>
                                 <%= message.messageText %><br>
                                     <strong style="color:rgb(255, 0, 0)">Author</strong>
                                     <%= user? message.author: "Log-in to unveil!" %><br>
@@ -50,7 +50,7 @@
                                         {
                                             if (user.isAdmin){
                                              %>
-                                            <a href="/">DELETE MESSAGE</a>
+                                            <a href="/message/<%= message.id %>/delete">DELETE MESSAGE</a>
                                             <% }%>
                                                 <% }%>
                                                     <hr>

@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -15,12 +16,12 @@ var flash = require('connect-flash');
 
 
 //TODO Cambiar la base de datos a una que sirva para produccion
-//TODO confirmPasspord field
-//TODO sanitaze data: en el sign up, pedir un mail valido, desde el fron o back????
-//TODO add validation to the models, ver en onenote "validation"
-//TODO cambiar la date a un formato que corresponda
-const mongoDb = "mongodb+srv://testmariano:testmarianol@cluster0.kyzvi.mongodb.net/onlyMembers?retryWrites=true";
-mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
+
+//TODO aplicar el capitulo de production
+
+//TODO lo mas importante, mostrar los errores de login
+const MONGODB = process.env.MONGODB;
+mongoose.connect(MONGODB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
@@ -30,7 +31,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(session({ secret: "cats", resave: true, saveUninitialized: true }));
+app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -100,7 +101,7 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+    //TODO ver esto res.locals.error = req.app.get('env') === 'development' ? err : {};
     // render the error page
     res.status(err.status || 500);
     res.render('error');

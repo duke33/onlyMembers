@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1>
+        Are you sure you wante to delete this message?
+    </h1>
+
+
+    <strong><%= message.tittle %></strong> <br>
+    <strong>Date</strong>
+    <%= message.timestamp %><br>
+        <%= message.messageText %><br>
+            <strong style="color:rgb(255, 0, 0)">Author</strong>
+            <%=message.author%><br>
+
+                <form action="" method="post">
+
+                    <input type="hidden" id="lname" name="lname"><br><br>
+                    <button type="submit">Yes, delete</button>
+
+                </form>

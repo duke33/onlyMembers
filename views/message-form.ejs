@@ -9,13 +9,24 @@
 <body>
     <h1>Create New Message</h1>
     <form id="msgForm" action="/create-new-message" method="POST">
-        <label for="tittle">Tittle</label>
-        <input name="tittle" placeholder="tittle" type="text" required />
+        <label for="tittle"></label>
+        <input name="tittle" placeholder="Tittle" type="text" required minlength="3" manlength="50" />
 
         <button>Post It!</button>
     </form>
     <br>
-    <textarea rows="4" cols="50" name="messageText" form="msgForm" required placeholder="Type your message here"></textarea>
+    <textarea rows="4" cols="50" name="messageText" form="msgForm" required minlength="3" manlength="4000" placeholder="Type your message here"></textarea>
+
+    <% if (typeof errors !== "undefined") { %>
+        <p>The message could not be submitted due to the following error:</p>
+        <ul>
+            <% for (var i = 0; i < errors.length ; i++) { %>
+                <li>
+                    <%= errors[i].msg %>
+                </li>
+                <% } %>
+        </ul>
+        <% } %>
 </body>
 
 </html>
