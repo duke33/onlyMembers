@@ -13,11 +13,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const bcrypt = require("bcryptjs");
 var flash = require('connect-flash');
+const MongoStore = require('connect-mongo')
 
 
-//TODO Cambiar la base de datos a una que sirva para produccion
+//PP aplicar el capitulo de production
 
-//TODO aplicar el capitulo de production
 
 //TODO lo mas importante, mostrar los errores de login
 const MONGODB = process.env.MONGODB;
@@ -27,11 +27,29 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 var app = express();
 
+
+//PP borrar los espacios en blanco que quedan para mejor lectura
+
+
+
+
+
 // view engine setup
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true }));
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB, collectionName: "sessionsSaved" }),
+    crypto: {
+        secret: process.env.SECRET
+    }
+}));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,6 +58,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
+
+
 
 //Function one : setting up the LocalStrategy
 passport.use(
@@ -88,6 +108,26 @@ app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
+
+
+
+//TODO este lo podes mover a la parte de los handlers despues cuando muevas todo.
+function checkAuthentication(req, res, next) {
+    if (req.isAuthenticated()) {
+
+        //req.isAuthenticated() will return true if user is logged in
+        next();
+    } else {
+        console.log("el usuario se deslogeo y fue redireccionado");
+        res.redirect("/log-in");
+    }
+}
+
+app.use('/create-new-message', checkAuthentication);
+
+app.use('/message/:id/delete', checkAuthentication);
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

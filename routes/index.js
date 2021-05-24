@@ -42,8 +42,7 @@ router.post("/sign-up",
         if (value !== req.body.password) {
             throw new Error('Password confirmation does not match password');
         }
-        //TODO poner las validaciones en otro lugar asi queda mejor el codigo
-        // Indicates the success of this synchronous custom validator
+
         return true;
     }).escape(),
 
@@ -56,7 +55,7 @@ router.post("/sign-up",
         });
     }),
     //TODO hay algo mal en la forma en que manejas los errores que se imprimen en pantalla, onda que te manda todos los errores a imprimir, inclusive eso que son internos y que el suario no deberia saber, como por ejemplo "Cannot read property 'username' of null"
-    //TODO revisar ese error de que al desloguearte no lo maneja como corresponde y tira error en vez de redigirigir, por eje,plo cuando queres hacerun mensaje nuevo y te deslogues en el medio. Lo ideal seria comprobar si estas logueado mirando la cookie o el req, como lo que te paso el pibe este
+
     body('email').custom(value => {
         return User.findOne({ email: value }).then(user => {
 
@@ -171,7 +170,7 @@ router.get("/message/:id/delete", (req, res) => {
 
 
 router.post("/message/:id/delete", (req, res) => {
-    //TODO borrar los console log
+    //PP borrar los console log
     Message.findByIdAndRemove(req.params.id).
     exec(function(err) {
         if (err) { return next(err); }
