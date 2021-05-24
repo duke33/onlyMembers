@@ -108,7 +108,7 @@ app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
-
+//a ver si lo manda
 
 
 //TODO este lo podes mover a la parte de los handlers despues cuando muevas todo.
