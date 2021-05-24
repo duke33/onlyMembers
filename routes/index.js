@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 var Message = require('../models/message');
 var flash = require('connect-flash');
 const { body, validationResult } = require('express-validator');
-const { check } = require('express-validator');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,12 +14,10 @@ router.get('/', function(req, res, next) {
     Message.find().sort({ timestamp: -1 }).
     exec(function(err, message_list) {
         if (err) { return next(err); }
-        // Successful, so render
-        //console.log(req.user);
-        //console.log(res.locals.currentUser);
+
         res.render('index', { title: 'Message List', message_list: message_list, user: req.user });
     });
-    //res.render('index', { title: 'Express' });
+
 });
 
 
@@ -105,7 +103,7 @@ router.get("/log-in", (req, res) => res.render("log-in-form", { user: req.user }
 router.post(
     "/log-in",
     passport.authenticate("local", {
-        failureFlash: false,
+        failureFlash: true,
         successRedirect: "/",
         failureRedirect: "/log-in"
 

@@ -19,7 +19,16 @@
         <input name="password" type="password" required/>
 
         <button>Log In</button>
+
     </form>
+
+
+
+    <% if (typeof message !== "undefined") {
+        console.log("hay un error en el login: messages: " + message); %>
+        <p>Form could not be submitted due to the following error:</p>
+
+        <% } %>
 
 </body>
 
