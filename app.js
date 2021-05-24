@@ -14,6 +14,7 @@ var usersRouter = require('./routes/users');
 const bcrypt = require("bcryptjs");
 var flash = require('connect-flash');
 const MongoStore = require('connect-mongo')
+var compression = require('compression');
 
 
 //PP aplicar el capitulo de production
@@ -31,7 +32,7 @@ var app = express();
 //PP borrar los espacios en blanco que quedan para mejor lectura
 
 
-
+app.use(compression()); //Compress all routes
 
 
 // view engine setup
